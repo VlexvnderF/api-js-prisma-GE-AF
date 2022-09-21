@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  password     String
+  name         String?
+  phone_number String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Character {
+  id         Int       @id @default(autoincrement())
+  name       String
+  date_birth DateTime?
+  image      String?
+  weight     Float?
+  history    String?
+  movies MoviesOnCharacters[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@map("characters")
+}
+
+model Movie {
+  id            Int      @id @default(autoincrement())
+  image        String
+  name        String
+  qualification  Float 
+  characters    MoviesOnCharacters[]
+  gender       GendersOnMovies[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  @@map("peliculas")
+}
+
+
+
+model Gender {
+  id          Int       @id @default(autoincrement())
+  name      String
+  image      String
+  movies   GendersOnMovies[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@map("generos")
+}
+
+model MoviesOnCharacters {
+  movie      Movie  @relation(fields: [movieId], references: [id])
+  movieId    Int
+  character     Character @relation(fields: [characterId], references: [id])
+  characterId   Int 
+  createdAt    DateTime @default(now())
+
+  @@id([movieId, characterId])
+  @@map("movies_characters")
+}
+
+model GendersOnMovies {
+  genderId    Int
+  movieId  Int
+  gender      Gender  @relation(fields: [genderId], references: [id])
+  movie    Movie  @relation(fields: [movieId], references: [id])
+  
+  assignedAt  DateTime @default(now())
+  @@id([genderId, movieId])
+  @@map("generos_peliculas")
+}
