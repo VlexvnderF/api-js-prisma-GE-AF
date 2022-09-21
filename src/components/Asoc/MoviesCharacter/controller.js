@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export const findAll = async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.moviesOnCharacters.findMany();
     res.json({
       ok: true,
       data: users,
@@ -17,10 +17,11 @@ export const findAll = async (req, res) => {
   }
 };
 
+
 export const create = async (req, res) => {
   try {
     const { body } = req;
-    const user = await prisma.user.create({
+    const user = await prisma.moviesOnCharacters.create({
       data: {
         ...body,
       },
