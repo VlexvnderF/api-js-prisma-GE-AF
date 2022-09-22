@@ -15,10 +15,9 @@ export const findAll = async (req, res) => {
           name: name,
         },
         select: {
-          id: true,
           name: true,
           image: true,
-          fecha_ini: true,
+          createdAt: true,
         },
       });
       found = movies
@@ -40,8 +39,7 @@ export const findAll = async (req, res) => {
         {
           orderBy: {
             createdAt: order,
-            /* createdAt: 'asc', */
-            /* createdAt: 'desc', */
+            
           },
         }
       );
@@ -49,10 +47,10 @@ export const findAll = async (req, res) => {
     }else{
       const movies = await prisma.movie.findMany({
         select: {
-          id: true,
+          
           image: true,
           name: true,
-          fecha_ini: true,
+          createdAt: true,
         },
       });
       found = movies

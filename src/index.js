@@ -1,5 +1,5 @@
 import { app } from "./app";
 
-const port = 6005;
+const port = 3309;
 
 app.listen(port, () => console.log(`Server init in localhost:${port}`));

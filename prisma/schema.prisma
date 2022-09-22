@@ -29,7 +29,7 @@ model Character {
   image      String?
   weight     Float?
   history    String?
-  movies MoviesOnCharacters[]
+  movies     MoviesOnCharacters[]
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 
@@ -37,35 +37,35 @@ model Character {
 }
 
 model Movie {
-  id            Int      @id @default(autoincrement())
-  image        String
-  name        String
-  qualification  Float 
-  characters    MoviesOnCharacters[]
-  gender       GendersOnMovies[]
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  @@map("peliculas")
+  id              Int      @id @default(autoincrement())
+  image           String
+  name            String
+  qualification   Float 
+  characters      MoviesOnCharacters[]
+  gender          GendersOnMovies[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  @@map("movies")
 }
 
 
 
 model Gender {
   id          Int       @id @default(autoincrement())
-  name      String
-  image      String
-  movies   GendersOnMovies[]
+  name        String
+  image       String
+  movies      GendersOnMovies[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  @@map("generos")
+  @@map("genders")
 }
 
 model MoviesOnCharacters {
-  movie      Movie  @relation(fields: [movieId], references: [id])
-  movieId    Int
+  movie         Movie  @relation(fields: [movieId], references: [id])
+  movieId       Int
   character     Character @relation(fields: [characterId], references: [id])
   characterId   Int 
-  createdAt    DateTime @default(now())
+  createdAt     DateTime @default(now())
 
   @@id([movieId, characterId])
   @@map("movies_characters")
@@ -79,5 +79,5 @@ model GendersOnMovies {
   
   assignedAt  DateTime @default(now())
   @@id([genderId, movieId])
-  @@map("generos_peliculas")
+  @@map("genders_movies")
 }

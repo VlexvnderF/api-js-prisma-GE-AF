@@ -14,7 +14,6 @@ export const findAll = async (req, res) => {
         name: name,
       },
       select: {
-        id: true,
         image: true,
         name: true,
       },
@@ -28,7 +27,7 @@ export const findAll = async (req, res) => {
         d_birth: d_birth,
       },
       select: {
-        id: true,
+        
         image: true,
         name: true,
       },
@@ -45,7 +44,7 @@ export const findAll = async (req, res) => {
         include: {
           character: {
             select: {
-            id: true,
+            
             image: true,
             name: true,
           }
@@ -57,7 +56,7 @@ export const findAll = async (req, res) => {
   }else{
     const characters = await prisma.character.findMany({
       select: {
-        id: true,
+        
         image: true,
         name: true,
       },

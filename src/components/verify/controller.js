@@ -81,7 +81,7 @@ export const signIn = async (req, res) => {
      });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      // Crear tocken
+      // Crear token
       const token = jwt.sign(
         { user_id: user._id, email },
         process.env.TOKEN_KEY,
@@ -90,7 +90,7 @@ export const signIn = async (req, res) => {
         }
       );
 
-      // Guardar tocken
+      // Guardar token
       user.token = token;
 
       // Usuario
